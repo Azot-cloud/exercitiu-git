@@ -23,14 +23,15 @@ def pe_servicii(tinte):
     """Dict: serviciu -> lista de porturi."""
     grupe = {}
     for t in tinte:
-        serviciu = t.get("serviciu")
+        serviciu = t.get("serviciu","necunoscut")
         port = port_valid(t["port"])
         if port is None:
             print("sar peste", t["gazda"], ": port invalid", t["port"])
             continue
-        grupe[serviciu] = []
+        if serviciu not in grupe:
+            grupe[serviciu] = []
         grupe[serviciu].append(port)
-        return grupe
+    return grupe
 
 
 def peste_prag(tinte, prag):
@@ -38,9 +39,9 @@ def peste_prag(tinte, prag):
     rezultat = []
     for t in tinte:
         port = int(t["port"])
-        if port > prag:
-            rezultat.append(t["gazda"])
-        return rezultat
+        if port is not None and port > prag:
+            rezultat.append(t("gazda","necunoscut"))
+    return rezultat
 
 
 def main():
