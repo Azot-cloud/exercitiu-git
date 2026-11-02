@@ -40,7 +40,7 @@ def peste_prag(tinte, prag):
     for t in tinte:
         port = int(t["port"])
         if port is not None and port > prag:
-            rezultat.append(t("gazda","necunoscut"))
+            rezultat.append(t.get("gazda","necunoscut"))
     return rezultat
 
 
